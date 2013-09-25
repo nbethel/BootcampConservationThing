@@ -10,14 +10,20 @@ def readFasta(filename):
   line_int=0
   char_mat = []
   file=open(filename,"r")
-  next(file)
   for i in file:
-    char_mat.append([])
-    char_mat[line_int].append(list(i))
-    del char_mat[line_int][0][-1]
-    line_int=line_int+1
-  print char_mat[0]
-  return char_mat
+    listy=list(i)
+    if listy[0]!=">":
+      for jj in range(len(listy)-1):
+        char_mat[line_int].append(listy[jj])
+    elif listy[0]==">":
+      char_mat.append([])
+      line_int=line_int+1
+  char_mat2=[]
+  for k in range(len(char_mat[1])):
+    char_mat2.append([])
+    for l in range(len(char_mat)):
+      char_mat2[k].append(char_mat[l][k])
+  return char_mat2
 
 def processFasta(char_mat):
     """Takes the read Fasta from readFast. Calls a scoring function for each line  
