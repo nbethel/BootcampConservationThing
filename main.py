@@ -11,3 +11,6 @@ def processFasta():
 """Takes the read Fasta from readFast. Calls a scoring function for each line
 of the alignment. Returns the consensus sequence as a list and a corresponding
 list of the conservation values."""
+
+
+def VisualizeData(consensus_residues, conservation_scores):
