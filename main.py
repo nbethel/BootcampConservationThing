@@ -22,10 +22,8 @@ def readFasta(filename):
     char_mat2.append([])
     for l in range(len(char_mat)):
       char_mat2[k].append(char_mat[l][k])
-  print char_mat2[4]
-  return char_mat
+  return char_mat2
 
-readFasta("alignments/ha/alignment.fasta")
 def processFasta(char_mat):
     """Takes the read Fasta from readFast. Calls a scoring function for each line  
     of the alignment. Returns the consensus sequence as a list and a corresponding
