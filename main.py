@@ -14,6 +14,9 @@ def processFasta():
 	list of the conservation values."""
 
 
+
+def VisualizeData(consensus_residues, conservation_scores):
+
 def makeScoreDict(filepath):
 	file = open(filepath, 'r')
 	
@@ -42,5 +45,4 @@ def scoreColumn(column_list, scoreDict):
 # 
 # my_column = ['A', 'A', 'A', ]
 # print scoreColumn (my_column, scoreDict)
-
 
