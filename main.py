@@ -6,18 +6,26 @@ def readFasta(filename):
 #Takes a location/filename as a string input. Opens the file and converts
 #the alignment file to either a matrix of the characters, or a list of lists.
 #Returns the fasta in python architecture. Implemeneted by Neville
-  line_int=0
+  line_int=-1
   char_mat = []
   file=open(filename,"r")
-  next(file)
   for i in file:
-    char_mat.append([])
-    char_mat[line_int].append(list(i))
-    del char_mat[line_int][0][-1]
-    line_int=line_int+1
-  print char_mat[0]
+    listy=list(i)
+    if listy[0]!=">":
+      for jj in range(len(listy)-1):
+        char_mat[line_int].append(listy[jj])
+    elif listy[0]==">":
+      char_mat.append([])
+      line_int=line_int+1
+  char_mat2=[]
+  for k in range(len(char_mat[1])):
+    char_mat2.append([])
+    for l in range(len(char_mat)):
+      char_mat2[k].append(char_mat[l][k])
+  print char_mat2[4]
   return char_mat
 
+readFasta("alignments/ha/alignment.fasta")
 def processFasta(char_mat):
 #"""Takes the read Fasta from readFast. Calls a scoring function for each line
 #of the alignment. Returns the consensus sequence as a list and a corresponding
@@ -25,7 +33,8 @@ def processFasta(char_mat):
   return 1
 
 def VisualizeData(consensus_residues, conservation_scores):
-
+  return 1
+ 
 def makeScoreDict(filepath):
 	file = open(filepath, 'r')
 	
