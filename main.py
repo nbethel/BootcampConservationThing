@@ -1,7 +1,6 @@
 # main.py
 import itertools
 
-
 def readFasta(filename):
 #Takes a location/filename as a string input. Opens the file and converts
 #the alignment file to either a matrix of the characters, or a list of lists.
@@ -27,14 +26,15 @@ def readFasta(filename):
 
 readFasta("alignments/ha/alignment.fasta")
 def processFasta(char_mat):
-#"""Takes the read Fasta from readFast. Calls a scoring function for each line
-#of the alignment. Returns the consensus sequence as a list and a corresponding
-#list of the conservation values."""
-  return 1
+    """Takes the read Fasta from readFast. Calls a scoring function for each line  
+    of the alignment. Returns the consensus sequence as a list and a corresponding
+    list of the conservation values.
+    """
+    return None
 
-def VisualizeData(consensus_residues, conservation_scores):
-  return 1
- 
+def visualizeData(consensus_residues, conservation_scores):
+        return None
+
 def makeScoreDict(filepath):
 	file = open(filepath, 'r')
 	
@@ -46,9 +46,11 @@ def makeScoreDict(filepath):
 	
 	return dict
 
+
 def scoreColumn(column_list, scoreDict):
 	# 
 	residue_pairs = itertools.combinations(column_list, 2)
+
 	score = 0
 	
 	for i in residue_pairs:
@@ -56,6 +58,11 @@ def scoreColumn(column_list, scoreDict):
 		score = score + new_score
 		
 	return score
+
+scoreDict = makeScoreDict('blosum62.dat')
+print scoreDict[('A','A')]
+
+#test_readFasta()
 
 # 
 # scoreDict = makeScoreDict('blosum62.dat')
