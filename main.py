@@ -8,7 +8,7 @@ def readFasta(filename):
   the alignment file to either a matrix of the characters, or a list of lists.
   returns the fasta in python architecture. Implemented by Neville.
   """
-  line_int=0
+  line_int=-1
   char_mat = []
   file=open(filename,"r")
   dict=python.makeCodonLib()
@@ -16,11 +16,11 @@ def readFasta(filename):
     listy=list(i)
     if listy[0]!=">":
       jj=0
-      while jj <= len(listy)-4:
-        codon=listy[jj]+listy[jj+1]+listy[jj+2]
-        amino=dict[codon]
-        char_mat[line_int].append(amino)
-        jj=jj+3
+      while jj <= len(listy)-3:
+          codon=listy[jj]+listy[jj+1]+listy[jj+2]
+          amino=dict[codon]
+          char_mat[line_int].append(amino)
+          jj=jj+3
     elif listy[0]==">":
       char_mat.append([])
       line_int=line_int+1
@@ -31,6 +31,7 @@ def readFasta(filename):
       char_mat2[k].append(char_mat[l][k])
   return char_mat2
 
+readFasta("alignments/ha/alignment.fasta")
 def processFasta(Fastafile):
     """Takes the read Fasta from readFast. Calls a scoring function for each line  
     of the alignment. Returns the consensus sequence as a list and a corresponding
