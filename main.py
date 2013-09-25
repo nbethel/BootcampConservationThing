@@ -1,6 +1,7 @@
 # main.py
 import itertools
 import pylab
+import python
 
 def readFasta(filename):
 #Takes a location/filename as a string input. Opens the file and converts
@@ -9,11 +10,16 @@ def readFasta(filename):
   line_int=-1
   char_mat = []
   file=open(filename,"r")
+  dict=python.makeCodonLib()
   for i in file:
     listy=list(i)
     if listy[0]!=">":
-      for jj in range(len(listy)-1):
-        char_mat[line_int].append(listy[jj])
+      jj=0
+      while jj <= len(listy)-4:
+        codon=listy[jj]+listy[jj+1]+listy[jj+2]
+        amino=dict[codon]
+        char_mat[line_int].append(amino)
+        jj=jj+3
     elif listy[0]==">":
       char_mat.append([])
       line_int=line_int+1
@@ -24,11 +30,13 @@ def readFasta(filename):
       char_mat2[k].append(char_mat[l][k])
   return char_mat2
 
-def processFasta(char_mat):
+def processFasta(Fastafile):
     """Takes the read Fasta from readFast. Calls a scoring function for each line  
     of the alignment. Returns the consensus sequence as a list and a corresponding
     list of the conservation values.
     """
+    
+    
     return None
 
 
