@@ -1,6 +1,8 @@
 # main.py
 import itertools
 import pylab
+import os
+from matplotlib import pyplot as plt
 import python
 
 def readFasta(filename):
@@ -72,16 +74,66 @@ def score_column_pairwise(column_list, score_dict):
 	return normalized_score
 # score_dict = make_score_dict('blosum62.dat')
 # column = ['A', 'A', 'A', 'C']
-# score = score_column(residues, column)
+# score = score_column_pairwise(column, score_dict)
+
+def score_all_columns_pairwise(all_columns_list, score_dict):
+	return map(lambda col_list: score_column_pairwise(col_list, score_dict),
+		all_columns_list)
+# score_dict = make_score_dict('blosum62.dat')
+# all_columns = [['A', 'A', 'A', 'C'], ['C', 'C', 'C', 'A']]
+# score_list = score_all_columns_pairwise(all_columns, score_dict)
+# print score_list
 
 
 def find_column_consensus(column_list):
 	return max(set(column_list), key=column_list.count)
-# residues = ['A', 'A', 'A', 'C']
+# column = ['A', 'A', 'A', 'C']
 # print(find_column_consensus(residues))
 
-def find_all_consensus(all_column_lists):
-	return map(lambda col_list: find_column_consensus(col_list), all_column_lists)
+def find_all_consensus(all_columns_lists):
+	return map(lambda col_list: find_column_consensus(col_list),
+		all_columns_lists)
 # all_columns = [['A', 'A', 'A', 'C'], ['C', 'C', 'C', 'A']]
-# print find_all_consensus(all_columns)
+# consensus = find_all_consensus(all_columns)
+# print consensus
 
+def score_column_fraction_consensus(column_list):
+	consensus = find_column_consensus(column_list)
+	count = column_list.count(consensus)
+	fraction = float(count) / float(len(column_list))
+	return fraction
+# column = ['A', 'A', 'A', 'C']
+# score = score_column_fraction_consensus(column)
+
+def score_all_columns_fraction_consensus(all_columns_list, score_dict):
+	return map(lambda col_list: score_column_pairwise(col_list, score_dict),
+		all_columns_list)
+# score_dict = make_score_dict('blosum62.dat')
+# all_columns = [['A', 'A', 'A', 'C'], ['C', 'C', 'C', 'A']]
+# score_list = score_all_columns_pairwise(all_columns, score_dict)
+# print score_list
+
+
+def visualization(consensus_residues, conservation_scores):
+	with open('data.dat', 'w') as f:
+		lis=[consensus_residues, conservation_scores]
+		n=1
+		for x in zip(*lis):
+        		f.write("%i {0} {1}\n" .format(*x) % n)
+			n+=1
+	os.system("gnuplot plotting.plt")
+# visualization(consensus, score_list)
+
+
+def visualization_k(consensus_residues, conservation_scores, output_file):
+	fig, ax = plt.subplots()
+	
+	
+	
+	test = ax.bar(range(len(conservation_scores)), conservation_scores, 1)
+	ax.get_xaxis().set_visible(False)
+	ax.get_yaxis().set_visible(False)
+    
+    # 	plt.show()
+	plt.savefig(output_file)	
+# visualization_k(consensus, score_list, 'test.png')
